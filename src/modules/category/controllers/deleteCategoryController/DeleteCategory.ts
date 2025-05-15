@@ -3,12 +3,12 @@ import { DeleteCategoryUseCase } from "../../useCases/DeleteCategoryUseCase";
 
 export class DeleteCategoryByIdController {
 
-    constructor(private usecase: DeleteCategoryUseCase) { }
+    constructor(private useCase: DeleteCategoryUseCase) { }
 
     handle = async (request: Request, response: Response) => {
-        const { id } = request.body
+        const { id } = request.params
         try {
-            this.usecase.execute(id)
+            this.useCase.execute(id)
             response.status(200).json({ message: "Deleted category" })
         } catch (error) {
             if (error instanceof Error) {

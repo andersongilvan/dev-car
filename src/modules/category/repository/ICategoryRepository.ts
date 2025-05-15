@@ -6,6 +6,7 @@ export interface ICategoryRepository {
     create({ name, description }: CreateCategoryDto): Promise<Category>
     list(): Promise<Category[]>
     listById(id: string): Promise<Category | null>
+    search(param : string) : Promise<Category[]>
     update({ id, name, description }: UpdateCategoryDto): Promise<Category | null>
-    delete(id: string): Promise<void>
+    delete(id: string): Promise<Category>
 }

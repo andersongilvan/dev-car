@@ -1,4 +1,4 @@
-import { Category, PrismaClient } from "../../../../generated/prisma";
+import { Category, Prisma, PrismaClient } from "../../../../generated/prisma";
 import { CreateCategoryDto } from "../dto/CreateCategoryDto";
 import { ListCategoryDto } from "../dto/ListCategoryDto";
 import { UpdateCategoryDto } from "../dto/UpdateCategoryDto";
@@ -25,10 +25,27 @@ export class CategoryRepository extends PrismaClient implements ICategoryReposit
 
     listById = async (id: string): Promise<Category | null> => {
         const category = await this.category.findFirst({
-            where: { id : id }
+            where: { id: id }
         })
 
         return category
+    }
+
+    search = async (param: string): Promise<Category[]> => {
+        const categorySearch = await this.category.findMany({
+            where: {
+                OR: [
+                    {
+                        name: { endsWith : param }
+                    },
+                    {
+                        description: { contains: param }
+                    }
+                ]
+            }
+        })
+
+        return categorySearch.sort()
     }
 
 
@@ -40,9 +57,16 @@ export class CategoryRepository extends PrismaClient implements ICategoryReposit
         return category
     }
 
-    delete = async (id: string): Promise<void> => {
-        await this.category.delete({
-            where : { id }
-        })
+    delete = async (id: string): Promise<Category> => {
+
+        try {
+            return this.category.delete({ where : { id } })
+        } catch (error) {
+            if(error instanceof Prisma.PrismaClientKnownRequestError) {
+                throw new Error("Category nor found")
+            }
+            throw error
+        }
+       
     }
 }
