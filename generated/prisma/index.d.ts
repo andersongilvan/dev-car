@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
+/**
+ * Model Specifications
+ * 
+ */
+export type Specifications = $Result.DefaultSelection<Prisma.$SpecificationsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.specifications`: Exposes CRUD operations for the **Specifications** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Specifications
+    * const specifications = await prisma.specifications.findMany()
+    * ```
+    */
+  get specifications(): Prisma.SpecificationsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Category: 'Category'
+    Category: 'Category',
+    Specifications: 'Specifications'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "category"
+      modelProps: "category" | "specifications"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CategoryCountArgs<ExtArgs>
             result: $Utils.Optional<CategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      Specifications: {
+        payload: Prisma.$SpecificationsPayload<ExtArgs>
+        fields: Prisma.SpecificationsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SpecificationsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SpecificationsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>
+          }
+          findFirst: {
+            args: Prisma.SpecificationsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SpecificationsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>
+          }
+          findMany: {
+            args: Prisma.SpecificationsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>[]
+          }
+          create: {
+            args: Prisma.SpecificationsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>
+          }
+          createMany: {
+            args: Prisma.SpecificationsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SpecificationsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>[]
+          }
+          delete: {
+            args: Prisma.SpecificationsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>
+          }
+          update: {
+            args: Prisma.SpecificationsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>
+          }
+          deleteMany: {
+            args: Prisma.SpecificationsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SpecificationsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SpecificationsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>[]
+          }
+          upsert: {
+            args: Prisma.SpecificationsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpecificationsPayload>
+          }
+          aggregate: {
+            args: Prisma.SpecificationsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpecifications>
+          }
+          groupBy: {
+            args: Prisma.SpecificationsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SpecificationsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SpecificationsCountArgs<ExtArgs>
+            result: $Utils.Optional<SpecificationsCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     category?: CategoryOmit
+    specifications?: SpecificationsOmit
   }
 
   /* Types for Logging */
@@ -1850,6 +1941,986 @@ export namespace Prisma {
 
 
   /**
+   * Model Specifications
+   */
+
+  export type AggregateSpecifications = {
+    _count: SpecificationsCountAggregateOutputType | null
+    _min: SpecificationsMinAggregateOutputType | null
+    _max: SpecificationsMaxAggregateOutputType | null
+  }
+
+  export type SpecificationsMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type SpecificationsMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type SpecificationsCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SpecificationsMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type SpecificationsMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type SpecificationsCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SpecificationsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Specifications to aggregate.
+     */
+    where?: SpecificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Specifications to fetch.
+     */
+    orderBy?: SpecificationsOrderByWithRelationInput | SpecificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SpecificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Specifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Specifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Specifications
+    **/
+    _count?: true | SpecificationsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SpecificationsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SpecificationsMaxAggregateInputType
+  }
+
+  export type GetSpecificationsAggregateType<T extends SpecificationsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpecifications]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpecifications[P]>
+      : GetScalarType<T[P], AggregateSpecifications[P]>
+  }
+
+
+
+
+  export type SpecificationsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpecificationsWhereInput
+    orderBy?: SpecificationsOrderByWithAggregationInput | SpecificationsOrderByWithAggregationInput[]
+    by: SpecificationsScalarFieldEnum[] | SpecificationsScalarFieldEnum
+    having?: SpecificationsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SpecificationsCountAggregateInputType | true
+    _min?: SpecificationsMinAggregateInputType
+    _max?: SpecificationsMaxAggregateInputType
+  }
+
+  export type SpecificationsGroupByOutputType = {
+    id: string
+    name: string
+    description: string
+    createdAt: Date
+    _count: SpecificationsCountAggregateOutputType | null
+    _min: SpecificationsMinAggregateOutputType | null
+    _max: SpecificationsMaxAggregateOutputType | null
+  }
+
+  type GetSpecificationsGroupByPayload<T extends SpecificationsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SpecificationsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SpecificationsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SpecificationsGroupByOutputType[P]>
+            : GetScalarType<T[P], SpecificationsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SpecificationsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["specifications"]>
+
+  export type SpecificationsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["specifications"]>
+
+  export type SpecificationsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["specifications"]>
+
+  export type SpecificationsSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }
+
+  export type SpecificationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt", ExtArgs["result"]["specifications"]>
+
+  export type $SpecificationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Specifications"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string
+      createdAt: Date
+    }, ExtArgs["result"]["specifications"]>
+    composites: {}
+  }
+
+  type SpecificationsGetPayload<S extends boolean | null | undefined | SpecificationsDefaultArgs> = $Result.GetResult<Prisma.$SpecificationsPayload, S>
+
+  type SpecificationsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SpecificationsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SpecificationsCountAggregateInputType | true
+    }
+
+  export interface SpecificationsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Specifications'], meta: { name: 'Specifications' } }
+    /**
+     * Find zero or one Specifications that matches the filter.
+     * @param {SpecificationsFindUniqueArgs} args - Arguments to find a Specifications
+     * @example
+     * // Get one Specifications
+     * const specifications = await prisma.specifications.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SpecificationsFindUniqueArgs>(args: SelectSubset<T, SpecificationsFindUniqueArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Specifications that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SpecificationsFindUniqueOrThrowArgs} args - Arguments to find a Specifications
+     * @example
+     * // Get one Specifications
+     * const specifications = await prisma.specifications.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SpecificationsFindUniqueOrThrowArgs>(args: SelectSubset<T, SpecificationsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Specifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpecificationsFindFirstArgs} args - Arguments to find a Specifications
+     * @example
+     * // Get one Specifications
+     * const specifications = await prisma.specifications.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SpecificationsFindFirstArgs>(args?: SelectSubset<T, SpecificationsFindFirstArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Specifications that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpecificationsFindFirstOrThrowArgs} args - Arguments to find a Specifications
+     * @example
+     * // Get one Specifications
+     * const specifications = await prisma.specifications.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SpecificationsFindFirstOrThrowArgs>(args?: SelectSubset<T, SpecificationsFindFirstOrThrowArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Specifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpecificationsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Specifications
+     * const specifications = await prisma.specifications.findMany()
+     * 
+     * // Get first 10 Specifications
+     * const specifications = await prisma.specifications.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const specificationsWithIdOnly = await prisma.specifications.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SpecificationsFindManyArgs>(args?: SelectSubset<T, SpecificationsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Specifications.
+     * @param {SpecificationsCreateArgs} args - Arguments to create a Specifications.
+     * @example
+     * // Create one Specifications
+     * const Specifications = await prisma.specifications.create({
+     *   data: {
+     *     // ... data to create a Specifications
+     *   }
+     * })
+     * 
+     */
+    create<T extends SpecificationsCreateArgs>(args: SelectSubset<T, SpecificationsCreateArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Specifications.
+     * @param {SpecificationsCreateManyArgs} args - Arguments to create many Specifications.
+     * @example
+     * // Create many Specifications
+     * const specifications = await prisma.specifications.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SpecificationsCreateManyArgs>(args?: SelectSubset<T, SpecificationsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Specifications and returns the data saved in the database.
+     * @param {SpecificationsCreateManyAndReturnArgs} args - Arguments to create many Specifications.
+     * @example
+     * // Create many Specifications
+     * const specifications = await prisma.specifications.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Specifications and only return the `id`
+     * const specificationsWithIdOnly = await prisma.specifications.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SpecificationsCreateManyAndReturnArgs>(args?: SelectSubset<T, SpecificationsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Specifications.
+     * @param {SpecificationsDeleteArgs} args - Arguments to delete one Specifications.
+     * @example
+     * // Delete one Specifications
+     * const Specifications = await prisma.specifications.delete({
+     *   where: {
+     *     // ... filter to delete one Specifications
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SpecificationsDeleteArgs>(args: SelectSubset<T, SpecificationsDeleteArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Specifications.
+     * @param {SpecificationsUpdateArgs} args - Arguments to update one Specifications.
+     * @example
+     * // Update one Specifications
+     * const specifications = await prisma.specifications.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SpecificationsUpdateArgs>(args: SelectSubset<T, SpecificationsUpdateArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Specifications.
+     * @param {SpecificationsDeleteManyArgs} args - Arguments to filter Specifications to delete.
+     * @example
+     * // Delete a few Specifications
+     * const { count } = await prisma.specifications.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SpecificationsDeleteManyArgs>(args?: SelectSubset<T, SpecificationsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Specifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpecificationsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Specifications
+     * const specifications = await prisma.specifications.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SpecificationsUpdateManyArgs>(args: SelectSubset<T, SpecificationsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Specifications and returns the data updated in the database.
+     * @param {SpecificationsUpdateManyAndReturnArgs} args - Arguments to update many Specifications.
+     * @example
+     * // Update many Specifications
+     * const specifications = await prisma.specifications.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Specifications and only return the `id`
+     * const specificationsWithIdOnly = await prisma.specifications.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SpecificationsUpdateManyAndReturnArgs>(args: SelectSubset<T, SpecificationsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Specifications.
+     * @param {SpecificationsUpsertArgs} args - Arguments to update or create a Specifications.
+     * @example
+     * // Update or create a Specifications
+     * const specifications = await prisma.specifications.upsert({
+     *   create: {
+     *     // ... data to create a Specifications
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Specifications we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SpecificationsUpsertArgs>(args: SelectSubset<T, SpecificationsUpsertArgs<ExtArgs>>): Prisma__SpecificationsClient<$Result.GetResult<Prisma.$SpecificationsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Specifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpecificationsCountArgs} args - Arguments to filter Specifications to count.
+     * @example
+     * // Count the number of Specifications
+     * const count = await prisma.specifications.count({
+     *   where: {
+     *     // ... the filter for the Specifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends SpecificationsCountArgs>(
+      args?: Subset<T, SpecificationsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SpecificationsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Specifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpecificationsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SpecificationsAggregateArgs>(args: Subset<T, SpecificationsAggregateArgs>): Prisma.PrismaPromise<GetSpecificationsAggregateType<T>>
+
+    /**
+     * Group by Specifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpecificationsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SpecificationsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SpecificationsGroupByArgs['orderBy'] }
+        : { orderBy?: SpecificationsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SpecificationsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpecificationsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Specifications model
+   */
+  readonly fields: SpecificationsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Specifications.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SpecificationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Specifications model
+   */
+  interface SpecificationsFieldRefs {
+    readonly id: FieldRef<"Specifications", 'String'>
+    readonly name: FieldRef<"Specifications", 'String'>
+    readonly description: FieldRef<"Specifications", 'String'>
+    readonly createdAt: FieldRef<"Specifications", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Specifications findUnique
+   */
+  export type SpecificationsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which Specifications to fetch.
+     */
+    where: SpecificationsWhereUniqueInput
+  }
+
+  /**
+   * Specifications findUniqueOrThrow
+   */
+  export type SpecificationsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which Specifications to fetch.
+     */
+    where: SpecificationsWhereUniqueInput
+  }
+
+  /**
+   * Specifications findFirst
+   */
+  export type SpecificationsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which Specifications to fetch.
+     */
+    where?: SpecificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Specifications to fetch.
+     */
+    orderBy?: SpecificationsOrderByWithRelationInput | SpecificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Specifications.
+     */
+    cursor?: SpecificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Specifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Specifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Specifications.
+     */
+    distinct?: SpecificationsScalarFieldEnum | SpecificationsScalarFieldEnum[]
+  }
+
+  /**
+   * Specifications findFirstOrThrow
+   */
+  export type SpecificationsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which Specifications to fetch.
+     */
+    where?: SpecificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Specifications to fetch.
+     */
+    orderBy?: SpecificationsOrderByWithRelationInput | SpecificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Specifications.
+     */
+    cursor?: SpecificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Specifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Specifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Specifications.
+     */
+    distinct?: SpecificationsScalarFieldEnum | SpecificationsScalarFieldEnum[]
+  }
+
+  /**
+   * Specifications findMany
+   */
+  export type SpecificationsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * Filter, which Specifications to fetch.
+     */
+    where?: SpecificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Specifications to fetch.
+     */
+    orderBy?: SpecificationsOrderByWithRelationInput | SpecificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Specifications.
+     */
+    cursor?: SpecificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Specifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Specifications.
+     */
+    skip?: number
+    distinct?: SpecificationsScalarFieldEnum | SpecificationsScalarFieldEnum[]
+  }
+
+  /**
+   * Specifications create
+   */
+  export type SpecificationsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Specifications.
+     */
+    data: XOR<SpecificationsCreateInput, SpecificationsUncheckedCreateInput>
+  }
+
+  /**
+   * Specifications createMany
+   */
+  export type SpecificationsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Specifications.
+     */
+    data: SpecificationsCreateManyInput | SpecificationsCreateManyInput[]
+  }
+
+  /**
+   * Specifications createManyAndReturn
+   */
+  export type SpecificationsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Specifications.
+     */
+    data: SpecificationsCreateManyInput | SpecificationsCreateManyInput[]
+  }
+
+  /**
+   * Specifications update
+   */
+  export type SpecificationsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Specifications.
+     */
+    data: XOR<SpecificationsUpdateInput, SpecificationsUncheckedUpdateInput>
+    /**
+     * Choose, which Specifications to update.
+     */
+    where: SpecificationsWhereUniqueInput
+  }
+
+  /**
+   * Specifications updateMany
+   */
+  export type SpecificationsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Specifications.
+     */
+    data: XOR<SpecificationsUpdateManyMutationInput, SpecificationsUncheckedUpdateManyInput>
+    /**
+     * Filter which Specifications to update
+     */
+    where?: SpecificationsWhereInput
+    /**
+     * Limit how many Specifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Specifications updateManyAndReturn
+   */
+  export type SpecificationsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * The data used to update Specifications.
+     */
+    data: XOR<SpecificationsUpdateManyMutationInput, SpecificationsUncheckedUpdateManyInput>
+    /**
+     * Filter which Specifications to update
+     */
+    where?: SpecificationsWhereInput
+    /**
+     * Limit how many Specifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Specifications upsert
+   */
+  export type SpecificationsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Specifications to update in case it exists.
+     */
+    where: SpecificationsWhereUniqueInput
+    /**
+     * In case the Specifications found by the `where` argument doesn't exist, create a new Specifications with this data.
+     */
+    create: XOR<SpecificationsCreateInput, SpecificationsUncheckedCreateInput>
+    /**
+     * In case the Specifications was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SpecificationsUpdateInput, SpecificationsUncheckedUpdateInput>
+  }
+
+  /**
+   * Specifications delete
+   */
+  export type SpecificationsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+    /**
+     * Filter which Specifications to delete.
+     */
+    where: SpecificationsWhereUniqueInput
+  }
+
+  /**
+   * Specifications deleteMany
+   */
+  export type SpecificationsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Specifications to delete
+     */
+    where?: SpecificationsWhereInput
+    /**
+     * Limit how many Specifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Specifications without action
+   */
+  export type SpecificationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Specifications
+     */
+    select?: SpecificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Specifications
+     */
+    omit?: SpecificationsOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1868,6 +2939,16 @@ export namespace Prisma {
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+  export const SpecificationsScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt'
+  };
+
+  export type SpecificationsScalarFieldEnum = (typeof SpecificationsScalarFieldEnum)[keyof typeof SpecificationsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1954,6 +3035,53 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
   }
 
+  export type SpecificationsWhereInput = {
+    AND?: SpecificationsWhereInput | SpecificationsWhereInput[]
+    OR?: SpecificationsWhereInput[]
+    NOT?: SpecificationsWhereInput | SpecificationsWhereInput[]
+    id?: StringFilter<"Specifications"> | string
+    name?: StringFilter<"Specifications"> | string
+    description?: StringFilter<"Specifications"> | string
+    createdAt?: DateTimeFilter<"Specifications"> | Date | string
+  }
+
+  export type SpecificationsOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SpecificationsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SpecificationsWhereInput | SpecificationsWhereInput[]
+    OR?: SpecificationsWhereInput[]
+    NOT?: SpecificationsWhereInput | SpecificationsWhereInput[]
+    name?: StringFilter<"Specifications"> | string
+    description?: StringFilter<"Specifications"> | string
+    createdAt?: DateTimeFilter<"Specifications"> | Date | string
+  }, "id">
+
+  export type SpecificationsOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    _count?: SpecificationsCountOrderByAggregateInput
+    _max?: SpecificationsMaxOrderByAggregateInput
+    _min?: SpecificationsMinOrderByAggregateInput
+  }
+
+  export type SpecificationsScalarWhereWithAggregatesInput = {
+    AND?: SpecificationsScalarWhereWithAggregatesInput | SpecificationsScalarWhereWithAggregatesInput[]
+    OR?: SpecificationsScalarWhereWithAggregatesInput[]
+    NOT?: SpecificationsScalarWhereWithAggregatesInput | SpecificationsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Specifications"> | string
+    name?: StringWithAggregatesFilter<"Specifications"> | string
+    description?: StringWithAggregatesFilter<"Specifications"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Specifications"> | Date | string
+  }
+
   export type CategoryCreateInput = {
     id?: string
     name: string
@@ -1997,6 +3125,55 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpecificationsCreateInput = {
+    id?: string
+    name: string
+    description: string
+    createdAt?: Date | string
+  }
+
+  export type SpecificationsUncheckedCreateInput = {
+    id?: string
+    name: string
+    description: string
+    createdAt?: Date | string
+  }
+
+  export type SpecificationsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpecificationsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpecificationsCreateManyInput = {
+    id?: string
+    name: string
+    description: string
+    createdAt?: Date | string
+  }
+
+  export type SpecificationsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpecificationsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -2078,6 +3255,27 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SpecificationsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SpecificationsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SpecificationsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
