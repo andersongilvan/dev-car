@@ -1,10 +1,11 @@
 import { Category } from "../../../../generated/prisma";
 import { CreateCategoryDto } from "../dto/CreateCategoryDto";
+import { UpdateCategoryDto } from "../dto/UpdateCategoryDto";
 
 export interface ICategoryRepository {
     create({ name, description }: CreateCategoryDto): Promise<Category>
     list(): Promise<Category[]>
     listById(id: string): Promise<Category | null>
-    update({ name, description }: CreateCategoryDto): Promise<void>
-    delete(id: string): void
+    update({ id, name, description }: UpdateCategoryDto): Promise<Category | null>
+    delete(id: string): Promise<void>
 }

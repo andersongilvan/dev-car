@@ -7,11 +7,11 @@ export class CreateCategoryController {
 
     handle = async (request: Request, response: Response) => {
         const { name, description } = request.body
-        console.log(name, description)
+        
 
 
         try {
-            const result = await this.createCategoryUseCase.execute(name, description)
+            const result = await this.createCategoryUseCase.execute({name, description})
             response.status(200).json(result)
         } catch (error) {
             error instanceof Error ? response.status(400).json(error.message) : error

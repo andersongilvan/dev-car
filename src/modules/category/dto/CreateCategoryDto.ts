@@ -1,8 +1,10 @@
 export class CreateCategoryDto {
-    name: string
-    description: string
+    
+    readonly name: string
+    readonly description: string
 
-    constructor(name: string, description: string) {
+    constructor( name: string, description: string) {
+        
         this.name = name
         this.description = description
     }

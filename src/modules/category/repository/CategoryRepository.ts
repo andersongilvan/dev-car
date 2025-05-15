@@ -1,15 +1,18 @@
 import { Category, PrismaClient } from "../../../../generated/prisma";
 import { CreateCategoryDto } from "../dto/CreateCategoryDto";
 import { ListCategoryDto } from "../dto/ListCategoryDto";
+import { UpdateCategoryDto } from "../dto/UpdateCategoryDto";
 import { ICategoryRepository } from "./ICategoryRepository";
 
 export class CategoryRepository extends PrismaClient implements ICategoryRepository {
     constructor() {
         super()
     }
+
+
     create = async ({ name, description }: CreateCategoryDto) => {
         const category = await this.category.create({
-            data: { name: name, description: description }
+            data: { name, description }
         })
 
         return category
@@ -18,17 +21,28 @@ export class CategoryRepository extends PrismaClient implements ICategoryReposit
         const categories = await this.category.findMany()
         return categories
     }
-    listById = async (id: string) :  Promise<Category | null> => {
+
+
+    listById = async (id: string): Promise<Category | null> => {
         const category = await this.category.findFirst({
-            where : { id : id }
+            where: { id : id }
         })
 
         return category
     }
-    update({ name, description }: CreateCategoryDto): Promise<void> {
-        throw new Error("Method not implemented.");
+
+
+    update = async ({ id, name, description }: UpdateCategoryDto): Promise<Category | null> => {
+        const category = await this.category.update({
+            where: { id }, data: { name, description }
+        })
+
+        return category
     }
-    delete(id: string): void {
-        throw new Error("Method not implemented.");
+
+    delete = async (id: string): Promise<void> => {
+        await this.category.delete({
+            where : { id }
+        })
     }
 }

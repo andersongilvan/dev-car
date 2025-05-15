@@ -1,11 +1,13 @@
+import { CreateCategoryDto } from "../dto/CreateCategoryDto";
 import { ListCategoryDto } from "../dto/ListCategoryDto";
 import { ICategoryRepository } from "../repository/ICategoryRepository";
+
 
 export class CreateCategoryUseCase {
 
     constructor(private repository: ICategoryRepository) { }
 
-    execute = async (name: string, description: string) => {
+    execute = async ({name, description} : CreateCategoryDto) => {
         if (!name || !description) {
             throw new Error("Required fields")
         }
