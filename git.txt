@@ -1,0 +1,46 @@
+=== COMANDOS BÁSICOS DO GIT ===
+
+1. CONFIGURAÇÃO INICIAL
+git config --global user.name "Seu Nome"  # Define seu nome
+git config --global user.email "seu@email.com"  # Define seu email
+
+2. INICIAR REPOSITÓRIO
+git init  # Cria novo repositório
+git clone [URL]  # Clona repositório remoto
+
+3. FLUXO DE TRABALHO
+git status  # Mostra estado dos arquivos
+git add [arquivo]  # Adiciona arquivo específico
+git add .  # Adiciona TODOS arquivos modificados
+git commit -m "mensagem"  # Grava as alterações
+git push  # Envia para o repositório remoto
+git pull  # Atualiza do repositório remoto
+
+4. BRANCHES
+git branch  # Lista branches
+git branch [nome]  # Cria nova branch
+git checkout [nome]  # Muda para branch
+git checkout -b [nova-branch]  # Cria e muda para nova branch
+git merge [branch]  # Combina branches
+git branch -d [nome]  # Deleta branch local
+
+5. HISTÓRICO
+git log  # Mostra histórico completo
+git log --oneline  # Histórico resumido
+git diff  # Mostra alterações não commitadas
+
+6. DESFAZER AÇÕES
+git restore [arquivo]  # Descarta mudanças não commitadas
+git reset [arquivo]  # Remove do stage (git add)
+git revert [commit]  # Desfaz commit mantendo histórico
+
+7. REPOSITÓRIO REMOTO
+git remote -v  # Lista repositórios remotos
+git fetch  # Baixa alterações sem integrar
+git push origin --delete [branch]  # Deleta branch remota
+
+=== DICAS IMPORTANTES ===
+- Sempre faça git pull antes de git push
+- Use mensagens de commit claras e objetivas
+- Crie branches para novas funcionalidades
+- Nunca faça force push (git push -f) em branches compartilhadas
